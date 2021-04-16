@@ -1,0 +1,130 @@
+<template>
+  <div id="app">
+    <NavBar :title="title" :externalUrl="spreadsheetUrl" />
+    <main class="container my-3">
+      <template v-if="doc">
+        <SearchForm :isBusy="isBusy" v-model="searchString" ref="searchForm" />
+        <ResultCard
+          v-for="(row, idx) in searchResults"
+          :key="idx"
+          :row="row"
+          :isBusy="isBusy"
+          @checkIn="checkIn"
+        />
+        <AlertMessage
+          v-if="searched && searchResults.length == 0"
+          message="No results found."
+          type="warning"
+        />
+        <p v-else-if="searched">{{ searchResults.length }} results found.</p>
+        <p v-if="!searched">{{ rowCount }} entries available.</p>
+      </template>
+      <AlertMessage v-else-if="error" :message="error" type="danger" />
+      <LoadingSpinner v-else />
+    </main>
+  </div>
+</template>
+
+<script>
+import NavBar from "./components/NavBar";
+import LoadingSpinner from "./components/LoadingSpinner";
+import AlertMessage from "./components/AlertMessage";
+import SearchForm from "./components/SearchForm";
+import ResultCard from "./components/ResultCard";
+
+import api from "./api";
+import util from "./util";
+
+export default {
+  components: {
+    NavBar,
+    LoadingSpinner,
+    AlertMessage,
+    SearchForm,
+    ResultCard,
+  },
+  data() {
+    return {
+      doc: null,
+      error: null,
+      isBusy: false,
+      searchString: "",
+      searchResults: [],
+      searched: false,
+    };
+  },
+  computed: {
+    title() {
+      if (this.doc) {
+        return this.doc.title;
+      }
+      return "Check-in Tool";
+    },
+    spreadsheetUrl() {
+      return api.spreadsheetUrl();
+    },
+    rowCount() {
+      return api.getRowCountFromFirstSheet(this.doc) - 1;
+    },
+  },
+  watch: {
+    searchString(value) {
+      this.resetSearch();
+      if (value != "") {
+        this.searchRecord(value);
+      }
+    },
+  },
+  async mounted() {
+    try {
+      this.doc = await api.fetchSpreadsheetDocument();
+    } catch (ex) {
+      console.error(ex);
+      this.error = ex;
+    }
+  },
+  methods: {
+    resetSearch() {
+      this.searchResults = [];
+      this.searched = false;
+    },
+    async searchRecord(value) {
+      this.isBusy = true;
+      const searchResults = [];
+      const rows = await api.getRowsFromFirstSheet(this.doc);
+      for (const row of rows) {
+        if (this.isMatchingRecord(row, value)) {
+          searchResults.push(row);
+        }
+      }
+      searchResults.sort((a, b) => a.Name.localeCompare(b.Name));
+      this.searchResults = searchResults;
+      this.searched = true;
+      this.isBusy = false;
+      this.$nextTick(() => {
+        this.$refs.searchForm.focus();
+      });
+    },
+    isMatchingRecord(row, value) {
+      return (
+        util.matchString(row.Name, value) ||
+        util.fuzzyMatchIdNumberString(row.ID, value)
+      );
+    },
+    async checkIn(row) {
+      if (!confirm(`Really check-in '${row.Name}'?`)) {
+        return;
+      }
+      // this.isBusy = true;
+      row.Checkin = new Date();
+      try {
+        await row.save();
+      } catch (ex) {
+        console.error(ex);
+        alert(ex);
+      }
+      this.isBusy = false;
+    },
+  },
+};
+</script>

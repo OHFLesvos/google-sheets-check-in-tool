@@ -16,7 +16,14 @@ const routes = [
     path: "/checkin",
     name: "checkin",
     component: () =>
-      import(/* webpackChunkName: "checkin" */ "../views/CheckinPage.vue")
+      import(/* webpackChunkName: "checkin" */ "../views/CheckinPage.vue"),
+    beforeEnter: async (to, from, next) => {
+      if (!store.getters.isAuthenticated) {
+        next({ name: "login" });
+      } else {
+        next();
+      }
+    }
   },
   {
     path: "/login",
@@ -28,7 +35,7 @@ const routes = [
     path: "/callback",
     name: "callback",
     beforeEnter: async (to, from, next) => {
-      await oauth.handleCallback(to.query)
+      await oauth.handleCallback(to.query);
       next({ name: "home" });
     }
   },

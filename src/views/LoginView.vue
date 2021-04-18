@@ -50,11 +50,16 @@ export default {
   },
   methods: {
     async signIn() {
+      const scopes = [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/spreadsheets',
+      ];
+
       const authorizeUrl = oAuth2Client.generateAuthUrl({
         access_type: "offline",
-        scope: "https://www.googleapis.com/auth/userinfo.profile",
+        scope: scopes.join(' '),
         hd: "ohf-lesvos.org",
-        prompt: "consent",
+        // prompt: "consent",
       });
       window.location.href = authorizeUrl;
     },

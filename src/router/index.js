@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -35,7 +36,6 @@ const router = new VueRouter({
   mode: "history",
 });
 
-import store from "../store";
 router.beforeEach((to, from, next) => {
   store.commit("resetTitle");
   store.commit("setExternalUrl", null);

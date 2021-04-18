@@ -8,7 +8,6 @@
           placeholder="Search for name or ID"
           v-model.trim="searchString"
           ref="searchInput"
-          autofocus
           :disabled="isBusy"
           @click="$refs.searchInput.select()"
         />
@@ -32,6 +31,11 @@ export default {
     return {
       searchString: this.value,
     };
+  },
+  created() {
+    this.$nextTick(() => {
+      this.$refs.searchInput.focus();
+    });
   },
   methods: {
     submit() {

@@ -49,15 +49,6 @@ export default {
     };
   },
   computed: {
-    title() {
-      if (this.doc) {
-        return this.doc.title;
-      }
-      return "Check-in Tool";
-    },
-    spreadsheetUrl() {
-      return api.spreadsheetUrl();
-    },
     rowCount() {
       return api.getRowCountFromFirstSheet(this.doc) - 1;
     },
@@ -71,8 +62,10 @@ export default {
     },
   },
   async mounted() {
+    this.$store.commit('setExternalUrl', api.spreadsheetUrl());
     try {
       this.doc = await api.fetchSpreadsheetDocument();
+      this.$store.commit('setTitle', this.doc.title);
     } catch (ex) {
       console.error(ex);
       this.error = ex;

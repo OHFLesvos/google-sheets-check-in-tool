@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">{{ title }}</a>
+      <router-link to="/" class="navbar-brand">{{ title }}</router-link>
       <ul class="navbar-nav ms-auto">
         <li v-if="externalUrl" class="nav-item">
           <a :href="externalUrl" target="_blank" class="nav-link"

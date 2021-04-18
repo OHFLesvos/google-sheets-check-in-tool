@@ -5,6 +5,15 @@ import oauth from "../oauth";
 
 Vue.use(VueRouter);
 
+function requireAuthenticated(to, from, next) {
+  if (!store.getters.isAuthenticated) {
+    sessionStorage.setItem('originalRoute', JSON.stringify(to))
+    next({ name: "login" });
+  } else {
+    next();
+  }
+}
+
 const routes = [
   {
     path: "/",
@@ -17,13 +26,7 @@ const routes = [
     name: "checkin",
     component: () =>
       import(/* webpackChunkName: "checkin" */ "../views/CheckinPage.vue"),
-    beforeEnter: async (to, from, next) => {
-      if (!store.getters.isAuthenticated) {
-        next({ name: "login" });
-      } else {
-        next();
-      }
-    }
+    beforeEnter: requireAuthenticated
   },
   {
     path: "/login",
@@ -36,7 +39,13 @@ const routes = [
     name: "callback",
     beforeEnter: async (to, from, next) => {
       await oauth.handleCallback(to.query);
-      next({ name: "home" });
+      const originalRoute = sessionStorage.getItem('originalRoute');
+      if (originalRoute) {
+        sessionStorage.removeItem('originalRoute');
+        next(JSON.parse(originalRoute));
+      } else {
+        next({ name: "home" });
+      }
     }
   },
   {

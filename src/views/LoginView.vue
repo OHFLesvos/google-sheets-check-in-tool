@@ -13,16 +13,6 @@
 <script>
 import oAuth2Client from "../oauth";
 
-oAuth2Client.on("tokens", (tokens) => {
-  if (tokens.refresh_token) {
-    console.log(`Refresh token: ${tokens.refresh_token}`);
-  }
-  if (tokens.expiry_date) {
-    console.log(`Expiry date: ${tokens.expiry_date}`);
-  }
-  console.log(`Access token: ${tokens.access_token}`);
-});
-
 export default {
   async mounted() {
     const code = this.$route.query.code;
@@ -33,7 +23,7 @@ export default {
       this.$store.commit("setAuthenticated", {
         access_token: oAuth2Client.credentials.access_token,
         refresh_token: oAuth2Client.credentials.refresh_token,
-        expiry_date: oAuth2Client.credentials.expiry_date,
+        expiry_date: oAuth2Client.credentials.expiry_date
       });
 
       const tokenInfo = await oAuth2Client.getTokenInfo(
@@ -44,24 +34,23 @@ export default {
   },
   methods: {
     async signIn() {
-
       // See https://developers.google.com/identity/protocols/oauth2/scopes#sheets
       const scopes = [
         "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/spreadsheets"
       ];
 
       const authorizeUrl = oAuth2Client.generateAuthUrl({
         access_type: "offline",
         scope: scopes.join(" "),
-        hd: "ohf-lesvos.org",
+        hd: "ohf-lesvos.org"
         // prompt: "consent",
       });
       window.location.href = authorizeUrl;
     },
     async signOut() {
       this.$store.commit("clearAuthenticated");
-    },
-  },
+    }
+  }
 };
 </script>

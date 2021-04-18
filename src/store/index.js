@@ -12,7 +12,7 @@ const store = new Vuex.Store({
     externalUrl: null,
     access_token: null,
     refresh_token: null,
-    expiry_date: null,
+    expiry_date: null
   },
   mutations: {
     setTitle(state, value) {
@@ -33,8 +33,13 @@ const store = new Vuex.Store({
       state.access_token = null;
       state.refresh_token = null;
       state.expiry_date = null;
-    },
+    }
   },
+  getters: {
+    isAuthenticated(state) {
+      return !!state.access_token;
+    }
+  }
 });
 
 export default store;

@@ -33,6 +33,14 @@ const routes = [
     }
   },
   {
+    path: "/logout",
+    name: "logout",
+    beforeEnter: async (to, from, next) => {
+      oauth.signOut();
+      next({ name: "home" });
+    }
+  },
+  {
     path: "*",
     component: () =>
       import(/* webpackChunkName: "notFound" */ "../views/NotFoundPage.vue")

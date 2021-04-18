@@ -44,16 +44,11 @@ async function handleCallback(query) {
       refresh_token: oAuth2Client.credentials.refresh_token,
       expiry_date: oAuth2Client.credentials.expiry_date
     });
-
-    const tokenInfo = await oAuth2Client.getTokenInfo(
-      oAuth2Client.credentials.access_token
-    );
-    console.log(tokenInfo.scopes);
   }
 }
 
 function signOut() {
-  this.$store.commit("clearAuthenticated");
+  store.commit("clearAuthenticated");
 }
 
 function getClient() {

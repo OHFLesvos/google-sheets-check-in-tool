@@ -1,12 +1,8 @@
 <template>
-  <div v-if="$store.state.refresh_token">
-    <p>Logged in</p>
-    <button type="button" class="btn btn-primary" @click="signOut">
-      Logout
+  <div class="d-grid">
+    <button type="button" class="btn btn-primary" @click="signIn">
+      <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google' }" /> Login
     </button>
-  </div>
-  <div v-else class="text-center">
-    <button type="button" class="btn btn-primary" @click="signIn">Login</button>
   </div>
 </template>
 
@@ -17,9 +13,6 @@ export default {
   methods: {
     signIn() {
       oauth.signIn();
-    },
-    signOut() {
-      oauth.signOut();
     }
   }
 };

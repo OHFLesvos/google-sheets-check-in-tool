@@ -28,7 +28,7 @@ import AlertMessage from "../components/AlertMessage";
 import SearchForm from "../components/SearchForm";
 import ResultCard from "../components/ResultCard";
 
-import api from "../api";
+import spreadsheet from "../spreadsheet";
 import util from "../util";
 
 export default {
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     rowCount() {
-      return api.getRowCountFromFirstSheet(this.doc) - 1;
+      return spreadsheet.getRowCountFromFirstSheet(this.doc) - 1;
     },
   },
   watch: {
@@ -62,9 +62,9 @@ export default {
     },
   },
   async mounted() {
-    this.$store.commit('setExternalUrl', api.spreadsheetUrl());
+    this.$store.commit('setExternalUrl', spreadsheet.spreadsheetUrl());
     try {
-      this.doc = await api.fetchSpreadsheetDocument();
+      this.doc = await spreadsheet.fetchSpreadsheetDocument();
       this.$store.commit('setTitle', this.doc.title);
     } catch (ex) {
       console.error(ex);
@@ -79,7 +79,7 @@ export default {
     async searchRecord(value) {
       this.isBusy = true;
       const searchResults = [];
-      const rows = await api.getRowsFromFirstSheet(this.doc);
+      const rows = await spreadsheet.getRowsFromFirstSheet(this.doc);
       for (const row of rows) {
         if (this.isMatchingRecord(row, value)) {
           searchResults.push(row);

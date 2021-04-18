@@ -11,13 +11,7 @@
 </template>
 
 <script>
-import { OAuth2Client } from "google-auth-library";
-
-const oAuth2Client = new OAuth2Client(
-  process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID,
-  process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_SECRET,
-  process.env.VUE_APP_GOOGLE_REDIRECT_URL
-);
+import oAuth2Client from "../oauth";
 
 oAuth2Client.on("tokens", (tokens) => {
   if (tokens.refresh_token) {
@@ -50,14 +44,16 @@ export default {
   },
   methods: {
     async signIn() {
+
+      // See https://developers.google.com/identity/protocols/oauth2/scopes#sheets
       const scopes = [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/spreadsheets',
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/spreadsheets",
       ];
 
       const authorizeUrl = oAuth2Client.generateAuthUrl({
         access_type: "offline",
-        scope: scopes.join(' '),
+        scope: scopes.join(" "),
         hd: "ohf-lesvos.org",
         // prompt: "consent",
       });

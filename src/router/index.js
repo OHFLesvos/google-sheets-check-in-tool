@@ -16,10 +16,23 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "checkin" */ "../views/CheckinPage.vue"),
   },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+  },
+  {
+    path: "/callback",
+    name: "callback",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/LoginView.vue"),
+  },
 ];
 
 const router = new VueRouter({
   routes,
+  mode: "history",
 });
 
 import store from "../store";

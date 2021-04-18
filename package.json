@@ -15,6 +15,7 @@
     "@popperjs/core": "^2.9.2",
     "bootstrap": "^5.0.0-beta3",
     "core-js": "^3.6.5",
+    "google-auth-library": "^6.1.6",
     "google-spreadsheet": "^3.1.15",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

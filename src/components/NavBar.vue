@@ -1,12 +1,19 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+  <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">{{ title }}</a>
+      <router-link to="/" class="navbar-brand">{{
+        $store.state.title
+      }}</router-link>
       <ul class="navbar-nav ms-auto">
-        <li v-if="externalUrl" class="nav-item">
-          <a :href="externalUrl" target="_blank" class="nav-link"
+        <li v-if="$store.state.externalUrl" class="nav-item">
+          <a :href="$store.state.externalUrl" target="_blank" class="nav-link"
             ><font-awesome-icon icon="file-excel"
           /></a>
+        </li>
+        <li v-if="isAuthenticated" class="nav-item">
+          <router-link :to="{ name: 'logout' }" class="nav-link">
+            <font-awesome-icon icon="sign-out-alt" />
+          </router-link>
         </li>
       </ul>
     </div>
@@ -14,14 +21,11 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
-  props: {
-    title: {
-      required: true,
-    },
-    externalUrl: {
-      required: false,
-    },
-  },
+  computed: {
+    ...mapGetters(["isAuthenticated"])
+  }
 };
 </script>

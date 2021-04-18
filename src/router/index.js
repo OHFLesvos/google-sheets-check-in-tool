@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
-import oAuth2Client from "../oauth";
+import oauth from "../oauth";
 
 Vue.use(VueRouter);
 
@@ -28,22 +28,7 @@ const routes = [
     path: "/callback",
     name: "callback",
     beforeEnter: async (to, from, next) => {
-      const code = to.query.code;
-      if (code) {
-        const res = await oAuth2Client.getToken(code);
-        oAuth2Client.setCredentials(res.tokens);
-
-        store.commit("setAuthenticated", {
-          access_token: oAuth2Client.credentials.access_token,
-          refresh_token: oAuth2Client.credentials.refresh_token,
-          expiry_date: oAuth2Client.credentials.expiry_date
-        });
-
-        const tokenInfo = await oAuth2Client.getTokenInfo(
-          oAuth2Client.credentials.access_token
-        );
-        console.log(tokenInfo.scopes);
-      }
+      await oauth.handleCallback(to.query)
       next({ name: "home" });
     }
   },

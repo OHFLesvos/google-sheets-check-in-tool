@@ -11,27 +11,15 @@
 </template>
 
 <script>
-import oAuth2Client from "../oauth";
+import oauth from "../oauth";
 
 export default {
   methods: {
-    async signIn() {
-      // See https://developers.google.com/identity/protocols/oauth2/scopes#sheets
-      const scopes = [
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "https://www.googleapis.com/auth/spreadsheets"
-      ];
-
-      const authorizeUrl = oAuth2Client.generateAuthUrl({
-        access_type: "offline",
-        scope: scopes.join(" "),
-        hd: "ohf-lesvos.org"
-        // prompt: "consent",
-      });
-      window.location.href = authorizeUrl;
+    signIn() {
+      oauth.signIn();
     },
-    async signOut() {
-      this.$store.commit("clearAuthenticated");
+    signOut() {
+      oauth.signOut();
     }
   }
 };

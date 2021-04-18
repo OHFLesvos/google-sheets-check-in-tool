@@ -14,24 +14,6 @@
 import oAuth2Client from "../oauth";
 
 export default {
-  async mounted() {
-    const code = this.$route.query.code;
-    if (code) {
-      const res = await oAuth2Client.getToken(code);
-      oAuth2Client.setCredentials(res.tokens);
-
-      this.$store.commit("setAuthenticated", {
-        access_token: oAuth2Client.credentials.access_token,
-        refresh_token: oAuth2Client.credentials.refresh_token,
-        expiry_date: oAuth2Client.credentials.expiry_date
-      });
-
-      const tokenInfo = await oAuth2Client.getTokenInfo(
-        oAuth2Client.credentials.access_token
-      );
-      console.log(tokenInfo.scopes);
-    }
-  },
   methods: {
     async signIn() {
       // See https://developers.google.com/identity/protocols/oauth2/scopes#sheets

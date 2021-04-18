@@ -11,7 +11,7 @@ oAuth2Client.on("tokens", (tokens) => {
     console.log(`Refresh token: ${tokens.refresh_token}`);
   }
   if (tokens.expiry_date) {
-    console.log(`Expiry date: ${tokens.expiry_date}`);
+    console.log(`Expiry date: ${new Date(tokens.expiry_date)}`);
   }
   console.log(`Access token: ${tokens.access_token}`);
 });

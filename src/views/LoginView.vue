@@ -31,12 +31,24 @@ export default {
         process.env.VUE_APP_GOOGLE_REDIRECT_URL
       );
       this.token = await oAuth2Client.getToken(code);
+
+      // oAuth2Client.on("tokens", (tokens) => {
+      //   if (tokens.refresh_token) {
+      //     console.log(tokens.refresh_token);
+      //   }
+      //   console.log(tokens.access_token);
+      // });
+
       oAuth2Client.setCredentials(this.token.tokens);
 
-      const tokenInfo = await oAuth2Client.getTokenInfo(
-        oAuth2Client.credentials.access_token
-      );
-      console.log(tokenInfo);
+      console.log(oAuth2Client.credentials.access_token);
+      console.log(oAuth2Client.credentials.refresh_token);
+      console.log(oAuth2Client.credentials.expiry_date);
+
+      // const tokenInfo = await oAuth2Client.getTokenInfo(
+      //   oAuth2Client.credentials.access_token
+      // );
+      // console.log(tokenInfo);
     }
   },
   methods: {
@@ -45,6 +57,7 @@ export default {
         access_type: "offline",
         scope: "https://www.googleapis.com/auth/userinfo.profile",
         hd: "ohf-lesvos.org",
+        prompt: 'consent'
       });
       window.location.href = authorizeUrl;
     },

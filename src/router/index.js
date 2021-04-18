@@ -38,7 +38,7 @@ const router = new VueRouter({
 import store from "../store";
 router.beforeEach((to, from, next) => {
   store.commit("resetTitle");
-  store.commit("resetExternalUrl");
+  store.commit("setExternalUrl", null);
   next();
 });
 

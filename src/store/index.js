@@ -10,6 +10,9 @@ const store = new Vuex.Store({
   state: {
     title: DEFAULT_TITLE,
     externalUrl: null,
+    access_token: null,
+    refresh_token: null,
+    expiry_date: null,
   },
   mutations: {
     setTitle(state, value) {
@@ -21,8 +24,15 @@ const store = new Vuex.Store({
     setExternalUrl(state, value) {
       state.externalUrl = value;
     },
-    resetExternalUrl(state) {
-      state.externalUrl = null;
+    setAuthenticated(state, { access_token, refresh_token, expiry_date }) {
+      state.access_token = access_token;
+      state.refresh_token = refresh_token;
+      state.expiry_date = expiry_date;
+    },
+    clearAuthenticated(state) {
+      state.access_token = null;
+      state.refresh_token = null;
+      state.expiry_date = null;
     },
   },
 });

@@ -1,18 +1,39 @@
 <template>
   <div>
     <template v-if="doc">
-      <h2>{{ doc.title }}</h2>
-      <p>
-        <strong>{{ rowCount }}</strong> persons registered.
-      </p>
-      <p v-if="checkIns >= 0">
-        <strong>{{ checkIns }}</strong> persons checked in overall.
-      </p>
-      <p v-else><em>Caluclating...</em></p>
-      <p v-if="checkInsToday >= 0">
-        <strong>{{ checkInsToday }}</strong> persons checked in today.
-      </p>
-      <p v-else><em>Caluclating...</em></p>
+      <h2 class="mb-3">{{ doc.title }}</h2>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="display-4">{{ rowCount }}</h2>
+              <p class="card-text">Persons registered</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="display-4">
+                {{ checkIns >= 0 ? checkIns : "..." }}
+              </h2>
+              <p class="card-text">Persons checked in overall</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="display-4">
+                {{ checkInsToday >= 0 ? checkInsToday : "..." }}
+              </h2>
+              <p class="card-text">Persons checked in today</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <table v-if="checkInsByDate.length > 0" class="table bg-white shadow-sm">
         <thead>
           <tr>

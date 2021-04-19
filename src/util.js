@@ -18,13 +18,14 @@ function fuzzyMatchIdNumberString(haystack, needle) {
 
 const isToday = (someDate) => {
   const today = new Date()
-  return someDate.getDate() == today.getDate() &&
-    someDate.getMonth() == today.getMonth() &&
-    someDate.getFullYear() == today.getFullYear()
+  return toDateString(today) == toDateString(someDate);
 }
+
+const toDateString = (someDate) => someDate.toISOString().split('T')[0];
 
 export default {
   matchString,
   fuzzyMatchIdNumberString,
-  isToday
+  isToday,
+  toDateString
 };

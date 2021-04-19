@@ -29,6 +29,12 @@ const routes = [
     beforeEnter: requireAuthenticated
   },
   {
+    path: "/statistics",
+    name: "statistics",
+    component: () =>
+      import(/* webpackChunkName: "statistics" */ "../views/StatisticsPage.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () =>

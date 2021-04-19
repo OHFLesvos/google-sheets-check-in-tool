@@ -5,5 +5,10 @@
       class="list-group-item list-group-item-action"
       >Check-in</router-link
     >
+    <router-link
+      :to="{ name: 'statistics' }"
+      class="list-group-item list-group-item-action"
+      >Statistics</router-link
+    >
   </div>
 </template>

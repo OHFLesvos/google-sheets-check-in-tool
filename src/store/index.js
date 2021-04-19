@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-const DEFAULT_TITLE = "Check-in Tool";
+const DEFAULT_TITLE = "OHF Check-in Tool";
 
 Vue.use(Vuex);
 

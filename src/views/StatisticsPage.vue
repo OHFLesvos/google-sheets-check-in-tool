@@ -50,6 +50,7 @@ export default {
     try {
       this.doc = await spreadsheet.fetchSpreadsheetDocumentWithServiceAccount();
       await this.calculateStatistics();
+      setInterval(this.calculateStatistics, 10 * 1000);
     } catch (ex) {
       console.error(ex);
       this.error = ex;
@@ -59,12 +60,21 @@ export default {
     async calculateStatistics() {
       const rows = await spreadsheet.getRowsFromFirstSheet(this.doc);
       this.checkIns = 0;
+      this.checkInsToday = 0;
       for (const row of rows) {
-        if (row.Checkin && row.Checkin?.trim() != "") {
+        if (
+          row.Checkin &&
+          row.Checkin?.trim() != "" &&
+          row.Checkin != "Checkin"
+        ) {
           this.checkIns++;
           const date = new Date(row.Checkin);
-          if (date instanceof Date && !isNaN(date) && util.isToday(date)) {
-            this.checkInsToday++;
+          if (date instanceof Date && !isNaN(date)) {
+            if (util.isToday(date)) {
+              this.checkInsToday++;
+            }
+          } else {
+            console.debug(`Not a date: ${row.Checkin}`)
           }
         }
       }

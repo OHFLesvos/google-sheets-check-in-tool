@@ -103,7 +103,7 @@ export default {
       if (!confirm(`Really check-in '${row.Name}'?`)) {
         return;
       }
-      // this.isBusy = true;
+      this.isBusy = true;
       row.Checkin = new Date();
       try {
         await row.save();

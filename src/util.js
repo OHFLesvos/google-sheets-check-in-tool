@@ -1,9 +1,15 @@
 function cleanNumberString(value) {
-  return value.replace(/[^0-9a-z]/gi, "");
+  if (value) {
+    return value.replace(/[^0-9a-z]/gi, "");
+  }
+  return value;
 }
 
 function matchString(haystack, needle) {
-  return haystack.toLowerCase().indexOf(needle.toLowerCase()) > -1;
+  if (haystack && needle) {
+    return haystack.toLowerCase().indexOf(needle.toLowerCase()) > -1;
+  }
+  return false;
 }
 
 function fuzzyMatchIdNumberString(haystack, needle) {

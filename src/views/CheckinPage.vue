@@ -64,7 +64,7 @@ export default {
   async mounted() {
     this.$store.commit('setExternalUrl', spreadsheet.spreadsheetUrl());
     try {
-      this.doc = await spreadsheet.fetchSpreadsheetDocument();
+      this.doc = await spreadsheet.fetchSpreadsheetDocumentWithOAuth();
       this.$store.commit('setTitle', this.doc.title);
     } catch (ex) {
       console.error(ex);

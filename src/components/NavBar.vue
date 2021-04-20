@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand navbar-dark bg-primary shadow-sm">
-    <div class="container-fluid">
+    <div class="container">
       <router-link to="/" class="navbar-brand">{{
         $store.state.title
       }}</router-link>

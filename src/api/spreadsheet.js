@@ -2,15 +2,17 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import oauth from "../auth/oauth";
 import serviceAuth from "../auth/serviceAuth";
 
+const spreadsheetId = process.env.VUE_APP_SPREADSHEET_ID;
+
 export default {
   async fetchSpreadsheetDocumentWithOAuth() {
-    const doc = new GoogleSpreadsheet(process.env.VUE_APP_SPREADSHEET_ID);
+    const doc = new GoogleSpreadsheet(spreadsheetId);
     doc.useOAuth2Client(oauth.getClient());
     await doc.loadInfo();
     return doc;
   },
   async fetchSpreadsheetDocumentWithServiceAccount() {
-    const doc = new GoogleSpreadsheet(process.env.VUE_APP_SPREADSHEET_ID);
+    const doc = new GoogleSpreadsheet(spreadsheetId);
     await doc.useServiceAccountAuth(serviceAuth.getCredentials());
     await doc.loadInfo();
     return doc;
@@ -23,9 +25,7 @@ export default {
     const sheet = doc.sheetsByIndex[0];
     return await sheet.getRows();
   },
-  spreadsheetUrl(doc = null) {
-    return `https://docs.google.com/spreadsheets/d/${
-      doc ? doc.spreadsheetId : process.env.VUE_APP_SPREADSHEET_ID
-    }`;
+  spreadsheetUrl() {
+    return `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
   },
 };

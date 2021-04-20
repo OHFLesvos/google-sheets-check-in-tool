@@ -1,5 +1,6 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import oauth from "../auth/oauth";
+import serviceAuth from "../auth/serviceAuth";
 
 export default {
   async fetchSpreadsheetDocumentWithOAuth() {
@@ -10,10 +11,7 @@ export default {
   },
   async fetchSpreadsheetDocumentWithServiceAccount() {
     const doc = new GoogleSpreadsheet(process.env.VUE_APP_SPREADSHEET_ID);
-    await doc.useServiceAccountAuth({
-      client_email: process.env.VUE_APP_GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      private_key: process.env.VUE_APP_GOOGLE_PRIVATE_KEY?.replace(/\\n/gm, "\n"),
-    });
+    await doc.useServiceAccountAuth(serviceAuth.getCredentials());
     await doc.loadInfo();
     return doc;
   },

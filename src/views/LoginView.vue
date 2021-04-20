@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import oauth from "../oauth";
+import oauth from "../auth/oauth";
 
 export default {
   methods: {

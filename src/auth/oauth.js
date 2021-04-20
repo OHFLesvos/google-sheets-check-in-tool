@@ -1,5 +1,5 @@
 import { OAuth2Client } from "google-auth-library";
-import store from "./store";
+import store from "../store";
 
 const oAuth2Client = new OAuth2Client({
   clientId: process.env.VUE_APP_GOOGLE_OAUTH_CLIENT_ID,

@@ -37,7 +37,7 @@ import StatisticsWidget from "../components/StatisticsWidget";
 import AlertMessage from "../components/AlertMessage";
 import LinkCard from "../components/LinkCard";
 
-import spreadsheet from "../spreadsheet";
+import spreadsheet from "../api/spreadsheet";
 
 export default {
   components: {

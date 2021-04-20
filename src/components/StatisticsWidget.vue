@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import spreadsheet from "../spreadsheet";
-import util from "../util";
+import spreadsheet from "../api/spreadsheet";
+import util from "../util/util";
 
 export default {
   props: {

@@ -1,8 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
 
-import "./bootstrap";
-import "./fontAwesome";
+import "./ui/bootstrap";
+import "./ui/fontAwesome";
 
 import store from "./store";
 import router from "./router";

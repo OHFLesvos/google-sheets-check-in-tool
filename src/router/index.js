@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
-import oauth from "../oauth";
+import oauth from "../auth/oauth";
 
 Vue.use(VueRouter);
 

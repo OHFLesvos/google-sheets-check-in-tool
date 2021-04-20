@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import dateFormatFilterMixin from "../dateFormatFilterMixin";
+import dateFormatFilterMixin from "../mixins/dateFormatFilterMixin";
 
 export default {
   props: {

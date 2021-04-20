@@ -1,5 +1,5 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import oauth from "./oauth";
+import oauth from "../auth/oauth";
 
 export default {
   async fetchSpreadsheetDocumentWithOAuth() {

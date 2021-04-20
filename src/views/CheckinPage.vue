@@ -28,8 +28,8 @@ import AlertMessage from "../components/AlertMessage";
 import SearchForm from "../components/SearchForm";
 import ResultCard from "../components/ResultCard";
 
-import spreadsheet from "../spreadsheet";
-import util from "../util";
+import spreadsheet from "../api/spreadsheet";
+import util from "../util/util";
 
 export default {
   components: {

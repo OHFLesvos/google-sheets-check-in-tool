@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <h2 class="display-6">Statistics</h2>
+    <h2 class="display-6 mb-3">Statistics</h2>
     <template v-if="doc">
       <StatisticsWidget :doc="doc" />
     </template>

@@ -4,8 +4,10 @@
       <div class="col">
         <div class="card shadow-sm">
           <div class="card-body">
-            <h2 class="display-4">{{ rowCount }}</h2>
-            <p class="card-text">Persons registered</p>
+            <h2 class="display-4">
+              {{ checkInsToday >= 0 ? checkInsToday : "..." }}
+            </h2>
+            <p class="card-text">Persons checked in today</p>
           </div>
         </div>
       </div>
@@ -22,10 +24,8 @@
       <div class="col">
         <div class="card shadow-sm">
           <div class="card-body">
-            <h2 class="display-4">
-              {{ checkInsToday >= 0 ? checkInsToday : "..." }}
-            </h2>
-            <p class="card-text">Persons checked in today</p>
+            <h2 class="display-4">{{ rowCount }}</h2>
+            <p class="card-text">Persons registered</p>
           </div>
         </div>
       </div>
@@ -33,7 +33,8 @@
 
     <table v-if="checkInsByDate.length > 0" class="table bg-white shadow-sm">
       <caption>
-        <strong>Data source:</strong> <a :href="dataSourceUrl" target="_blank">{{ doc.title }}</a>
+        <strong>Data source:</strong>
+        <a :href="dataSourceUrl" target="_blank">{{ doc.title }}</a>
       </caption>
       <thead>
         <tr>

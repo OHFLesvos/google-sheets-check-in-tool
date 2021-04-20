@@ -32,6 +32,10 @@
     </div>
 
     <table v-if="checkInsByDate.length > 0" class="table bg-white shadow-sm">
+      <caption>
+        <strong>Data source: </strong>
+        <a :href="dataSourceUrl" target="_blank">{{ doc.title }}</a>
+      </caption>
       <thead>
         <tr>
           <th>Date</th>
@@ -68,6 +72,9 @@ export default {
   computed: {
     rowCount() {
       return spreadsheet.getRowCountFromFirstSheet(this.doc) - 1;
+    },
+    dataSourceUrl() {
+      return spreadsheet.spreadsheetUrl();
     },
   },
   async mounted() {

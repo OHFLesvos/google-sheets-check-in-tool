@@ -7,11 +7,13 @@ import {
   faSearch,
   faCheck,
   faSignOutAlt,
+  faUserCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  faGoogle
+  faGoogle,
+  faGoogleDrive
 } from "@fortawesome/free-brands-svg-icons";
-library.add(faFileExcel, faIdCard, faSearch, faCheck, faSignOutAlt, faGoogle);
+library.add(faFileExcel, faIdCard, faSearch, faCheck, faSignOutAlt, faGoogle, faUserCheck, faGoogleDrive);
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 Vue.component("font-awesome-icon", FontAwesomeIcon);
